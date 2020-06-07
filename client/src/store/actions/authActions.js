@@ -1,17 +1,35 @@
 import axios from "axios";
-import { SET_USER } from "./types";
+import js_cookie from 'js-cookie'
+import { SET_USER, LOGOUT_USER, AUTH_ERROR } from "./types";
 
 export const loginUser = (loginData) => {
   return async (dispatch) => {
     try {
       const res = await axios.post("/api/users/login", loginData);
-      dispatch(setUser(res.data));
+      dispatch(setUser(res.data.user));
     } catch (error) {
-      console.log(error);
+      dispatch(authError(error.response.data));
+    }
+  };
+};
+export const registerUser = (registerData) => {
+  return async (dispatch) => {
+    try {
+      const res = await axios.post("/api/users/register", registerData);
+      dispatch(setUser(res.data.user));
+    } catch (error) {
+      dispatch(authError(error.response.data));
     }
   };
 };
 
 export const setUser = (user) => {
   return { type: SET_USER, user };
+};
+export const logoutUser = () => {
+  js_cookie.remove('jwt')
+  return { type: LOGOUT_USER };
+};
+export const authError = (error) => {
+  return { type: AUTH_ERROR, error };
 };

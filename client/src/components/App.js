@@ -4,6 +4,7 @@ import Posts from "./Posts/Posts";
 import NotFound from "./NotFound/NotFound";
 import Navbar from "./Navbar/Navbar";
 import Login from "./Login/Login";
+import Logout from "./Logout/Logout";
 
 const App = () => {
   return (
@@ -13,6 +14,7 @@ const App = () => {
         <Switch>
           <Route path="/" exact component={Posts} />
           <Route path="/login" component={Login} />
+          <Route path="/logout" component={Logout} />
           <Route component={NotFound} />
         </Switch>
       </div>

@@ -1,7 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { connect } from "react-redux";
 
-const Navbar = (props) => {
+const Navbar = ({ user }) => {
   return (
     <nav className="navbar navbar-expand-md navbar-dark bg-primary mb-3">
       <div className="container">
@@ -22,22 +23,49 @@ const Navbar = (props) => {
         <div className="collapse navbar-collapse">
           <ul className="navbar-nav mr-auto">
             <li className="nav-item">
-              <Link to='/add' className='nav-link' >Добавить статью</Link>
+              <Link to="/add" className="nav-link">
+                Добавить статью
+              </Link>
             </li>
           </ul>
 
-          <ul className="navbar-nav">
-            <li className="nav-item">
-              <Link to='/login' className='nav-link' >Вход</Link>
-            </li>
-            <li className="nav-item">
-              <Link to='/register' className='nav-link' >Регистрация</Link>
-            </li>
-          </ul>
+          {user ? (
+            <ul className="navbar-nav">
+              <li className="nav-item">
+                <Link to="#" className="nav-link">
+                  {user.name}
+                </Link>
+              </li>
+              <li className="nav-item">
+                <Link to="/logout" className="nav-link">
+                  Выход
+                </Link>
+              </li>
+            </ul>
+          ) : (
+            <ul className="navbar-nav">
+              <li className="nav-item">
+                <Link to="/login" className="nav-link">
+                  Вход
+                </Link>
+              </li>
+              <li className="nav-item">
+                <Link to="/register" className="nav-link">
+                  Регистрация
+                </Link>
+              </li>
+            </ul>
+          )}
         </div>
       </div>
     </nav>
   );
 };
 
-export default Navbar;
+const mapStateToProps = (state) => {
+  return {
+    user: state.authReducer.user,
+  };
+};
+
+export default connect(mapStateToProps)(Navbar);

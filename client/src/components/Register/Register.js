@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
-import { loginUser } from "../../store/actions/authActions";
+import { registerUser } from "../../store/actions/authActions";
 
-const Login = ({errors, user, loginUser, history}) => {
+const Register = ({ errors, user, loginUser, history }) => {
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [password2, setPassword2] = useState("");
 
   const onEmailChange = (e) => {
     setEmail(e.target.value);
@@ -16,10 +18,10 @@ const Login = ({errors, user, loginUser, history}) => {
   const onSubmit = (e) => {
     e.preventDefault();
 
-    loginUser({email, password})
+    registerUser({ email, password, password2, name });
   };
 
-  if (user) history.push('/')
+  if (user) history.push("/");
 
   return (
     <div className="row">
@@ -36,7 +38,6 @@ const Login = ({errors, user, loginUser, history}) => {
             name="email"
           />
           {errors.email && <div className="text-danger">{errors.email}</div>}
-
         </div>
 
         <div className="form-group">
@@ -48,7 +49,9 @@ const Login = ({errors, user, loginUser, history}) => {
             onChange={onPasswordChange}
             name="password"
           />
-          {errors.password && <div className="text-danger">{errors.password}</div>}
+          {errors.password && (
+            <div className="text-danger">{errors.password}</div>
+          )}
         </div>
 
         <button type="submit" className="btn btn-primary btn-lg">
@@ -62,8 +65,8 @@ const Login = ({errors, user, loginUser, history}) => {
 const mapStateToProps = (state) => {
   return {
     user: state.authReducer.user,
-    errors: state.authReducer.authErrors
+    errors: state.authReducer.authErrors,
   };
 };
 
-export default connect(mapStateToProps, { loginUser })(Login);
+export default connect(mapStateToProps, { registerUser })(Register);

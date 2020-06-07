@@ -2,9 +2,26 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { BrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
+import js_cookie from 'js-cookie'
+import jwt_decode from 'jwt-decode'
 import * as serviceWorker from "./serviceWorker";
 import App from "./components/App";
 import store from "./store";
+import { setUser, logoutUser } from "./store/actions/authActions";
+
+const jwt = js_cookie.get('jwt')
+
+if (jwt) {
+  const decoded = jwt_decode(jwt)
+  store.dispatch(setUser(decoded))
+
+  const currentTime = Date.now() / 1000
+
+  if (decoded.exp < currentTime) {
+    store.dispatch(logoutUser())
+    window.location.href = '/login'
+  }
+}
 
 ReactDOM.render(
   <Provider store={store}>
@@ -15,7 +32,4 @@ ReactDOM.render(
   document.getElementById("root")
 );
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
 serviceWorker.unregister();
