@@ -1,4 +1,4 @@
-import { SET_USER, LOGOUT_USER, AUTH_ERROR } from "../actions/types";
+import { SET_USER, LOGOUT_USER, AUTH_ERROR, CLEAR_ERRORS } from "../actions/types";
 
 const initialState = {
   user: null,
@@ -13,6 +13,8 @@ const authReducer = (state = initialState, action) => {
       return {...state, user: null };
     case AUTH_ERROR:
       return {...state, authErrors: {...action.error} };
+    case CLEAR_ERRORS:
+      return {...state, authErrors: {} };
     default:
       return state;
   }

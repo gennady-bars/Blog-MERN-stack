@@ -1,12 +1,17 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
-import { registerUser } from "../../store/actions/authActions";
+import { registerUser, clearErrors } from "../../store/actions/authActions";
 
-const Register = ({ errors, user, loginUser, history }) => {
+const Register = ({ errors, user, registerUser, clearErrors, history }) => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [password2, setPassword2] = useState("");
+
+  useEffect(() => {
+    clearErrors()
+    // eslint-disable-next-line
+  }, [])
 
   const onEmailChange = (e) => {
     setEmail(e.target.value);
@@ -26,7 +31,19 @@ const Register = ({ errors, user, loginUser, history }) => {
   return (
     <div className="row">
       <form action="" className="card p-3 mx-auto col-md-6" onSubmit={onSubmit}>
-        <h2 className="text-center">Вход</h2>
+        <h2 className="text-center">Регистрация</h2>
+
+        <div className="form-group">
+          <label htmlFor="name">Имя</label>
+          <input
+            type="text"
+            className="form-control"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            name="name"
+          />
+          {errors.name && <div className="text-danger">{errors.name}</div>}
+        </div>
 
         <div className="form-group">
           <label htmlFor="email">Email</label>
@@ -54,8 +71,22 @@ const Register = ({ errors, user, loginUser, history }) => {
           )}
         </div>
 
+        <div className="form-group">
+          <label htmlFor="password2">Повторите пароль</label>
+          <input
+            type="password"
+            className="form-control"
+            value={password2}
+            onChange={(e) => setPassword2(e.target.value)}
+            name="password2"
+          />
+          {errors.password2 && (
+            <div className="text-danger">{errors.password2}</div>
+          )}
+        </div>
+
         <button type="submit" className="btn btn-primary btn-lg">
-          Войти
+          Зарегистрироваться
         </button>
       </form>
     </div>
@@ -69,4 +100,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, { registerUser })(Register);
+export default connect(mapStateToProps, { registerUser, clearErrors })(Register);

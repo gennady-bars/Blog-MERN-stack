@@ -1,10 +1,15 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
-import { loginUser } from "../../store/actions/authActions";
+import { loginUser, clearErrors } from "../../store/actions/authActions";
 
-const Login = ({errors, user, loginUser, history}) => {
+const Login = ({errors, user, loginUser, clearErrors, history}) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  useEffect(() => {
+    clearErrors()
+    // eslint-disable-next-line
+  }, [])
 
   const onEmailChange = (e) => {
     setEmail(e.target.value);
@@ -66,4 +71,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, { loginUser })(Login);
+export default connect(mapStateToProps, { loginUser, clearErrors })(Login);

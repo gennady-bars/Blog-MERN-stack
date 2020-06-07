@@ -1,6 +1,6 @@
 import axios from "axios";
 import js_cookie from 'js-cookie'
-import { SET_USER, LOGOUT_USER, AUTH_ERROR } from "./types";
+import { SET_USER, LOGOUT_USER, AUTH_ERROR, CLEAR_ERRORS } from "./types";
 
 export const loginUser = (loginData) => {
   return async (dispatch) => {
@@ -32,4 +32,7 @@ export const logoutUser = () => {
 };
 export const authError = (error) => {
   return { type: AUTH_ERROR, error };
+};
+export const clearErrors = () => {
+  return { type: CLEAR_ERRORS };
 };
