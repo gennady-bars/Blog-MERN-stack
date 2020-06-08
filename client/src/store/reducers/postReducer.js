@@ -1,20 +1,19 @@
-import { SET_POSTS, SET_POST } from "../actions/types"
-
+import { SET_POSTS, SET_POST } from "../actions/types";
 
 const initialState = {
   post: null,
-  posts: null
-}
+  posts: null,
+};
 
-const postReducer = (state=initialState, action) => {
+const postReducer = (state = initialState, action) => {
   switch (action.type) {
     case SET_POSTS:
-      return { ...state, posts:  action.posts}
+      return { ...state, posts: action.posts };
     case SET_POST:
-      return { ...state, post:  action.post}
+      return { ...state, post: action.post };
     default:
-      return state
+      return state;
   }
-}
+};
 
-export default postReducer
+export default postReducer;
