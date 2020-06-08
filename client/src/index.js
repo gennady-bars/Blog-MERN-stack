@@ -6,7 +6,7 @@ import js_cookie from 'js-cookie'
 import jwt_decode from 'jwt-decode'
 import * as serviceWorker from "./serviceWorker";
 import App from "./components/App";
-import store from "./store";
+import store from "./store/store";
 import { setUser, logoutUser } from "./store/actions/authActions";
 
 const jwt = js_cookie.get('jwt')

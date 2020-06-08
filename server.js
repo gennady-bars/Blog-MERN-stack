@@ -49,7 +49,7 @@ app.use("/api/users", require("./routes/users"));
 
 // Start server
 if (dev) {
-app.use(express.static(__dirname + "/public"));
+  app.use(express.static(__dirname + "/public"));
 
   app.listen(port, () => {
     console.log(`Server started on ${port} port.`);
