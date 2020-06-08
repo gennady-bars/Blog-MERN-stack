@@ -1,9 +1,9 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
-import { getPost } from "../../store/actions/postActions";
+import { getPost, deletePostThunk } from "../../store/actions/postActions";
 import Spinner from "../Spinner/Spinner";
 
-const PostPage = ({ post, user, getPost, match }) => {
+const PostPage = ({ post, user, getPost, deletePostThunk, history, match }) => {
   useEffect(() => {
     getPost(match.params.id);
     // eslint-disable-next-line
@@ -21,7 +21,7 @@ const PostPage = ({ post, user, getPost, match }) => {
 
       {user && user.id === post.author._id ? (
         <div>
-          <button className="btn btn-danger mr-2">Удалить</button>
+          <button onClick={() => deletePostThunk(post._id, history)} className="btn btn-danger mr-2">Удалить</button>
           <button className="btn btn-light mr-2">Редактировать</button>
         </div>
       ) : null}
@@ -36,4 +36,4 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps, { getPost })(PostPage);
+export default connect(mapStateToProps, { getPost, deletePostThunk })(PostPage);
