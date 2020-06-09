@@ -1,8 +1,16 @@
-import { SET_POSTS, SET_POST, DELETE_POST } from "../actions/types";
+import {
+  SET_POSTS,
+  SET_POST,
+  DELETE_POST,
+  ADD_POST,
+  EDIT_POST,
+  SET_POST_ERROR,
+} from "../actions/types";
 
 const initialState = {
   post: null,
   posts: null,
+  error: null
 };
 
 const postReducer = (state = initialState, action) => {
@@ -13,6 +21,12 @@ const postReducer = (state = initialState, action) => {
       return { ...state, post: action.post };
     case DELETE_POST:
       return { ...state, post: null };
+    case EDIT_POST:
+      return { ...state, post: null };
+    case ADD_POST:
+      return { ...state, posts: null };
+    case SET_POST_ERROR:
+      return { ...state, error: action.error };
     default:
       return state;
   }

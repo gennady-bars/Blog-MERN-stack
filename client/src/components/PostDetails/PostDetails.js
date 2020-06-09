@@ -2,12 +2,20 @@ import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { getPost, deletePostThunk } from "../../store/actions/postActions";
 import Spinner from "../Spinner/Spinner";
+import { Link } from "react-router-dom";
 
-const PostPage = ({ post, user, getPost, deletePostThunk, history, match }) => {
+const PostDetails = ({ post, user, getPost, deletePostThunk, history, match }) => {
   useEffect(() => {
     getPost(match.params.id);
     // eslint-disable-next-line
   }, []);
+
+  const onDelete = () => {
+    const confirmed = window.confirm("Удалить пост?");
+    if (confirmed) {
+      deletePostThunk(post._id, history);
+    }
+  };
 
   if (!post) return <Spinner />;
 
@@ -21,8 +29,12 @@ const PostPage = ({ post, user, getPost, deletePostThunk, history, match }) => {
 
       {user && user.id === post.author._id ? (
         <div>
-          <button onClick={() => deletePostThunk(post._id, history)} className="btn btn-danger mr-2">Удалить</button>
-          <button className="btn btn-light mr-2">Редактировать</button>
+          <button onClick={onDelete} className="btn btn-danger mr-2">
+            Удалить
+          </button>
+          <Link to={`/edit/${post._id}`} className="btn btn-light mr-2">
+            Редактировать
+          </Link>
         </div>
       ) : null}
     </div>
@@ -36,4 +48,4 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps, { getPost, deletePostThunk })(PostPage);
+export default connect(mapStateToProps, { getPost, deletePostThunk })(PostDetails);

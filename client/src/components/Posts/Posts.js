@@ -3,16 +3,28 @@ import { connect } from "react-redux";
 import { getPosts } from "../../store/actions/postActions";
 import Spinner from "../Spinner/Spinner";
 import Post from "../Post/Post";
+import { Link } from "react-router-dom";
 
-const Posts = ({ posts, getPosts }) => {
+const Posts = ({ posts, error, getPosts }) => {
   useEffect(() => {
     getPosts();
     // eslint-disable-next-line
   }, []);
 
+  if (error) {
+    return (
+      <div>
+        <h2>Ошибка</h2>
+        <Link to='/' >Перейдите на главную страницу</Link>
+      </div>
+    )
+  }
+
   if (!posts) {
     return <Spinner />;
   }
+
+
   return (
     <div>
         {posts.map((post) => {
@@ -25,6 +37,7 @@ const Posts = ({ posts, getPosts }) => {
 const mapStateToProps = (state) => {
   return {
     posts: state.postReducer.posts,
+    error: state.postReducer.error
   };
 };
 

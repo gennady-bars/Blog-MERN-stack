@@ -1,51 +1,88 @@
 import axios from "axios";
-import { SET_POSTS, SET_POST, DELETE_POST, ADD_POST } from "../actions/types";
+import {
+  SET_POSTS,
+  SET_POST,
+  DELETE_POST,
+  ADD_POST,
+  EDIT_POST,
+  SET_POST_ERROR,
+} from "../actions/types";
 
 export const getPosts = () => {
   return async (dispatch) => {
+    dispatch(setPostError(null));
     try {
       const res = await axios.get("/api/posts");
       dispatch(setPosts(res.data));
-    } catch (error) {}
+    } catch (error) {
+      dispatch(setPostError(error));
+    }
   };
 };
 
 export const getPost = (id) => {
   return async (dispatch) => {
+    dispatch(setPostError(null));
     try {
       const res = await axios.get(`/api/posts/${id}`);
 
       dispatch(setPost(res.data));
-    } catch (error) {}
+    } catch (error) {
+      console.log(error);
+
+      dispatch(setPostError(error));
+    }
   };
 };
 
 export const deletePostThunk = (id, history) => {
   return async (dispatch) => {
+    dispatch(setPostError(null));
     try {
       await axios.delete(`/api/posts/${id}`);
 
       dispatch(deletePost());
       history.replace("/");
-    } catch (error) {}
+    } catch (error) {
+      dispatch(setPostError(error));
+    }
   };
 };
 
-export const addPostThunk = (post) => {
+export const addPostThunk = (post, history) => {
   return async (dispatch) => {
+    dispatch(setPostError(null));
     try {
-      const res = await axios.post('/api/posts', post)
+      await axios.post("/api/posts", post);
 
-      dispatch(addPost())
+      dispatch(addPost());
+      history.push("/");
     } catch (error) {
-      
+      dispatch(setPostError(error));
     }
-  }
-}
+  };
+};
+
+export const editPostThunk = (id, post, history) => {
+  return async (dispatch) => {
+    dispatch(setPostError(null));
+    try {
+      await axios.put(`/api/posts/${id}`, post);
+
+      dispatch(editPost());
+      history.push(`/`);
+    } catch (error) {
+      dispatch(setPostError(error));
+    }
+  };
+};
 
 export const addPost = () => {
-  return { type: ADD_POST }
-}
+  return { type: ADD_POST };
+};
+export const editPost = () => {
+  return { type: EDIT_POST };
+};
 
 export const setPosts = (posts) => {
   return { type: SET_POSTS, posts };
@@ -55,4 +92,7 @@ export const setPost = (post) => {
 };
 export const deletePost = () => {
   return { type: DELETE_POST };
+};
+export const setPostError = (error) => {
+  return { type: SET_POST_ERROR, error };
 };

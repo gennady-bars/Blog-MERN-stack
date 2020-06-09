@@ -1,14 +1,16 @@
 import React, { useState } from "react";
+import { connect } from "react-redux";
+import { addPostThunk } from "../../store/actions/postActions";
+import { Link } from "react-router-dom";
 
-const AddPost = () => {
+const AddPost = ({ addPostThunk, history }) => {
   const [title, setTitle] = useState("");
   const [text, setText] = useState("");
 
   const onSubmit = (e) => {
-    e.preventDefault()
-    console.log(title, text);
-    
-  }
+    e.preventDefault();
+    addPostThunk({ title, text }, history);
+  };
   return (
     <form onSubmit={onSubmit}>
       <div className="form-group">
@@ -18,7 +20,7 @@ const AddPost = () => {
           type="text"
           value={title}
           className="form-control"
-          name='title'
+          name="title"
         />
       </div>
 
@@ -29,13 +31,18 @@ const AddPost = () => {
           type="text"
           value={text}
           className="form-control"
-          name='text'
+          name="text"
         />
       </div>
 
-      <button type='submit' className="btn btn-primary">Опубликовать</button>
+      <button type="submit" className="btn btn-primary mr-3">
+        Опубликовать
+      </button>
+      <Link to='/' type="submit" className="btn btn-secondary">
+        Отмена
+      </Link>
     </form>
   );
 };
 
-export default AddPost;
+export default connect(null, { addPostThunk })(AddPost);
