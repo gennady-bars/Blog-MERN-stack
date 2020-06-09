@@ -7,6 +7,7 @@ import Login from "./Login/Login";
 import Logout from "./Logout/Logout";
 import Register from "./Register/Register";
 import PostPage from "./PostPage/PostPage";
+import AddPost from "./AddPost/AddPost";
 
 const App = () => {
   return (
@@ -19,6 +20,7 @@ const App = () => {
           <Route path="/logout" component={Logout} />
           <Route path="/register" component={Register} />
           <Route path="/post/:id" component={PostPage} />
+          <Route path="/add" component={AddPost} />
           <Route component={NotFound} />
         </Switch>
       </div>

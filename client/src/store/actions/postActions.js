@@ -1,5 +1,5 @@
 import axios from "axios";
-import { SET_POSTS, SET_POST, DELETE_POST } from "../actions/types";
+import { SET_POSTS, SET_POST, DELETE_POST, ADD_POST } from "../actions/types";
 
 export const getPosts = () => {
   return async (dispatch) => {
@@ -14,6 +14,7 @@ export const getPost = (id) => {
   return async (dispatch) => {
     try {
       const res = await axios.get(`/api/posts/${id}`);
+
       dispatch(setPost(res.data));
     } catch (error) {}
   };
@@ -23,11 +24,28 @@ export const deletePostThunk = (id, history) => {
   return async (dispatch) => {
     try {
       await axios.delete(`/api/posts/${id}`);
-      dispatch(deletePost())
-      history.replace('/')
+
+      dispatch(deletePost());
+      history.replace("/");
     } catch (error) {}
   };
 };
+
+export const addPostThunk = (post) => {
+  return async (dispatch) => {
+    try {
+      const res = await axios.post('/api/posts', post)
+
+      dispatch(addPost())
+    } catch (error) {
+      
+    }
+  }
+}
+
+export const addPost = () => {
+  return { type: ADD_POST }
+}
 
 export const setPosts = (posts) => {
   return { type: SET_POSTS, posts };

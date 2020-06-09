@@ -8,7 +8,7 @@ const Post = ({post}) => {
     }
   }
     return (
-        <div className='card pb-3'>
+        <div className='card mb-3'>
             <div className="card-body">
                 <h1>{post.title}</h1>
                 <p>{shortenText(post.text)}</p>
