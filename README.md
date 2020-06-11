@@ -1,4 +1,4 @@
-# Blog make with MongoDB/Mongoose + Express + React/Redux + Node
+# Blog made with MongoDB/Mongoose + Express + React/Redux + Node
 a blog app
 
 * you can read the blog posts
