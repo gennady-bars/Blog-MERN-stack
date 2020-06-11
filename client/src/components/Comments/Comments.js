@@ -1,7 +1,7 @@
 import React from 'react'
 import Comment from '../Comment.js/Comment';
 
-const Comments = ({comments, user}) => {
+const Comments = ({comments}) => {
 
   if (comments.length === 0) {
     return <p>Список комментариев пока пуст</p>
@@ -10,7 +10,7 @@ const Comments = ({comments, user}) => {
         <div>
           {
             comments.map((comment) => {
-              return <Comment key={comment._id} comment={comment} user={user} />
+              return <Comment key={comment._id} comment={comment}/>
             })
           }
         </div>

@@ -42,7 +42,7 @@ const PostDetails = ({ post, user, getPost, deletePostThunk, addCommentThunk, hi
 
       <AddComment user={user} addComment={addCommentThunk}/>
 
-      <Comments comments={post.comments} user={user} />
+      <Comments comments={post.comments}/>
     </div>
   );
 };

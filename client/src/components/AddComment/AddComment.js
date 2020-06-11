@@ -32,7 +32,7 @@ const AddComment = ({ user, addComment, match }) => {
           className="form-control"
         />
       </div>
-      <button type="submit" className="btn btn-primary mb-3">
+      <button type="submit" className="btn btn-primary mb-3" disabled={!text.trim()}>
         Отправить
       </button>
     </form>
