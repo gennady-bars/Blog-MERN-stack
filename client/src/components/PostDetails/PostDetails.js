@@ -1,12 +1,25 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
-import { getPost, deletePostThunk, addCommentThunk } from "../../store/actions/postActions";
+import {
+  getPost,
+  deletePostThunk,
+  addCommentThunk,
+} from "../../store/actions/postActions";
 import Spinner from "../Spinner/Spinner";
 import { Link } from "react-router-dom";
 import AddComment from "../AddComment/AddComment";
 import Comments from "../Comments/Comments";
+import { Helmet } from "react-helmet";
 
-const PostDetails = ({ post, user, getPost, deletePostThunk, addCommentThunk, history, match }) => {
+const PostDetails = ({
+  post,
+  user,
+  getPost,
+  deletePostThunk,
+  addCommentThunk,
+  history,
+  match,
+}) => {
   useEffect(() => {
     getPost(match.params.id);
     // eslint-disable-next-line
@@ -23,6 +36,9 @@ const PostDetails = ({ post, user, getPost, deletePostThunk, addCommentThunk, hi
 
   return (
     <div>
+      <Helmet>
+        <title>{post.title}</title>
+      </Helmet>
       <h1>{post.title}</h1>
 
       <p className="text-muted">{post.author.name}</p>
@@ -40,9 +56,9 @@ const PostDetails = ({ post, user, getPost, deletePostThunk, addCommentThunk, hi
         </div>
       ) : null}
 
-      <AddComment user={user} addComment={addCommentThunk}/>
+      <AddComment user={user} addComment={addCommentThunk} />
 
-      <Comments comments={post.comments}/>
+      <Comments comments={post.comments} />
     </div>
   );
 };
@@ -54,6 +70,8 @@ function mapStateToProps(state) {
   };
 }
 
-
-
-export default connect(mapStateToProps, { getPost, deletePostThunk, addCommentThunk })(PostDetails);
+export default connect(mapStateToProps, {
+  getPost,
+  deletePostThunk,
+  addCommentThunk,
+})(PostDetails);

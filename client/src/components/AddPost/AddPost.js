@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { addPostThunk } from "../../store/actions/postActions";
 import { Link } from "react-router-dom";
 import withAuth from "../../hoc/withAuth";
+import { Helmet } from "react-helmet";
 
 const AddPost = ({ addPostThunk, history }) => {
   const [title, setTitle] = useState("");
@@ -14,6 +15,10 @@ const AddPost = ({ addPostThunk, history }) => {
   };
   return (
     <form onSubmit={onSubmit}>
+      <Helmet>
+        <title>Добавление статьи</title>
+      </Helmet>
+
       <div className="form-group">
         <label htmlFor="title">Заголовок</label>
         <input
@@ -39,11 +44,11 @@ const AddPost = ({ addPostThunk, history }) => {
       <button type="submit" className="btn btn-primary mr-3">
         Опубликовать
       </button>
-      <Link to='/' type="submit" className="btn btn-secondary">
+      <Link to="/" type="submit" className="btn btn-secondary">
         Отмена
       </Link>
     </form>
   );
 };
 
-export default withAuth(connect(null, { addPostThunk })(AddPost))
+export default withAuth(connect(null, { addPostThunk })(AddPost));

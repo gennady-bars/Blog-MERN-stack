@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { editPostThunk, getPost } from "../../store/actions/postActions";
 import { Link } from "react-router-dom";
+import { Helmet } from "react-helmet";
 
 const EditPost = ({ post, getPost, editPostThunk, error, history, match }) => {
   const [title, setTitle] = useState((post && post.title) || "");
@@ -22,13 +23,16 @@ const EditPost = ({ post, getPost, editPostThunk, error, history, match }) => {
     return (
       <div>
         <h2>Ошибка</h2>
-        <Link to='/' >Перейдите на главную страницу</Link>
+        <Link to="/">Перейдите на главную страницу</Link>
       </div>
-    )
+    );
   }
 
   return (
     <form onSubmit={onSubmit}>
+      <Helmet>
+        <title>Редактирование статьи</title>
+      </Helmet>
       <div className="form-group">
         <label htmlFor="title">Заголовок</label>
         <input

@@ -1,9 +1,10 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
+import { Helmet } from "react-helmet";
 import { getPosts } from "../../store/actions/postActions";
 import Spinner from "../Spinner/Spinner";
 import Post from "../Post/Post";
-import { Link } from "react-router-dom";
 
 const Posts = ({ posts, error, getPosts }) => {
   useEffect(() => {
@@ -11,28 +12,27 @@ const Posts = ({ posts, error, getPosts }) => {
     // eslint-disable-next-line
   }, []);
 
-  console.log(posts);
-  
-
   if (error) {
     return (
       <div>
         <h2>Ошибка</h2>
-        <Link to='/' >Перейдите на главную страницу</Link>
+        <Link to="/">Перейдите на главную страницу</Link>
       </div>
-    )
+    );
   }
 
   if (!posts) {
     return <Spinner />;
   }
 
-
   return (
     <div>
-        {posts.map((post) => {
-            return <Post post={post} key={post._id} />
-        })}
+      <Helmet>
+        <title>Главная страница</title>
+      </Helmet>
+      {posts.map((post) => {
+        return <Post post={post} key={post._id} />;
+      })}
     </div>
   );
 };
@@ -40,7 +40,7 @@ const Posts = ({ posts, error, getPosts }) => {
 const mapStateToProps = (state) => {
   return {
     posts: state.postReducer.posts,
-    error: state.postReducer.error
+    error: state.postReducer.error,
   };
 };
 

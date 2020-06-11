@@ -1,15 +1,16 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { loginUser, clearErrors } from "../../store/actions/authActions";
+import { Helmet } from "react-helmet";
 
-const Login = ({errors, user, loginUser, clearErrors, history}) => {
+const Login = ({ errors, user, loginUser, clearErrors, history }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   useEffect(() => {
-    clearErrors()
+    clearErrors();
     // eslint-disable-next-line
-  }, [])
+  }, []);
 
   const onEmailChange = (e) => {
     setEmail(e.target.value);
@@ -21,13 +22,16 @@ const Login = ({errors, user, loginUser, clearErrors, history}) => {
   const onSubmit = (e) => {
     e.preventDefault();
 
-    loginUser({email, password})
+    loginUser({ email, password });
   };
 
-  if (user) history.push('/')
+  if (user) history.push("/");
 
   return (
     <div className="row">
+      <Helmet>
+        <title>Вход</title>
+      </Helmet>
       <form action="" className="card p-3 mx-auto col-md-6" onSubmit={onSubmit}>
         <h2 className="text-center">Вход</h2>
 
@@ -41,7 +45,6 @@ const Login = ({errors, user, loginUser, clearErrors, history}) => {
             name="email"
           />
           {errors.email && <div className="text-danger">{errors.email}</div>}
-
         </div>
 
         <div className="form-group">
@@ -53,7 +56,9 @@ const Login = ({errors, user, loginUser, clearErrors, history}) => {
             onChange={onPasswordChange}
             name="password"
           />
-          {errors.password && <div className="text-danger">{errors.password}</div>}
+          {errors.password && (
+            <div className="text-danger">{errors.password}</div>
+          )}
         </div>
 
         <button type="submit" className="btn btn-primary btn-lg">
@@ -67,7 +72,7 @@ const Login = ({errors, user, loginUser, clearErrors, history}) => {
 const mapStateToProps = (state) => {
   return {
     user: state.authReducer.user,
-    errors: state.authReducer.authErrors
+    errors: state.authReducer.authErrors,
   };
 };
 

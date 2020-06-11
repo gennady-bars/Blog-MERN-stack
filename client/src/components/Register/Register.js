@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { registerUser, clearErrors } from "../../store/actions/authActions";
+import { Helmet } from "react-helmet";
 
 const Register = ({ errors, user, registerUser, clearErrors, history }) => {
   const [name, setName] = useState("");
@@ -9,9 +10,9 @@ const Register = ({ errors, user, registerUser, clearErrors, history }) => {
   const [password2, setPassword2] = useState("");
 
   useEffect(() => {
-    clearErrors()
+    clearErrors();
     // eslint-disable-next-line
-  }, [])
+  }, []);
 
   const onEmailChange = (e) => {
     setEmail(e.target.value);
@@ -30,6 +31,9 @@ const Register = ({ errors, user, registerUser, clearErrors, history }) => {
 
   return (
     <div className="row">
+      <Helmet>
+        <title>Регистрация</title>
+      </Helmet>
       <form action="" className="card p-3 mx-auto col-md-6" onSubmit={onSubmit}>
         <h2 className="text-center">Регистрация</h2>
 
@@ -100,4 +104,6 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, { registerUser, clearErrors })(Register);
+export default connect(mapStateToProps, { registerUser, clearErrors })(
+  Register
+);
