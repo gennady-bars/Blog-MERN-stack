@@ -1,8 +1,14 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 
-const AddComment = ({ user }) => {
+const AddComment = ({ user, addComment, match }) => {
   const [text, setText] = useState("");
+
+  const onSubmit = (e) => {
+    e.preventDefault()
+    addComment(match.params.id, { text })
+    setText('')
+  }
 
   if (!user) {
     return (
@@ -16,7 +22,7 @@ const AddComment = ({ user }) => {
     );
   }
   return (
-    <form>
+    <form onSubmit={onSubmit} >
       <div className="form-group mt-3">
         <label htmlFor="text">Комментарий</label>
         <textarea
@@ -26,11 +32,11 @@ const AddComment = ({ user }) => {
           className="form-control"
         />
       </div>
-      <button type="submit" className="btn btn-primary">
+      <button type="submit" className="btn btn-primary mb-3">
         Отправить
       </button>
     </form>
   );
 };
 
-export default AddComment;
+export default withRouter(AddComment);

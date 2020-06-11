@@ -6,6 +6,8 @@ import {
   ADD_POST,
   EDIT_POST,
   SET_POST_ERROR,
+  ADD_COMMENT,
+  DELETE_COMMENT,
 } from "../actions/types";
 
 export const getPosts = () => {
@@ -77,6 +79,31 @@ export const editPostThunk = (id, post, history) => {
   };
 };
 
+export const addCommentThunk = (id, comment) => {
+  return async (dispatch) => {
+    try {
+      const res = await axios.post(`/api/posts/comment/${id}`, comment);
+
+      dispatch(addComment(res.data));
+    } catch (error) {}
+  };
+};
+export const deleteCommentThunk = (id) => {
+  return async (dispatch) => {
+    try {
+      const res = await axios.delete(`/api/posts/comment/${id}`);
+
+      dispatch(deleteComment(res.data));
+    } catch (error) {}
+  };
+};
+
+export const deleteComment = (post) => {
+  return { type: DELETE_COMMENT, post };
+};
+export const addComment = (post) => {
+  return { type: ADD_COMMENT, post };
+};
 export const addPost = () => {
   return { type: ADD_POST };
 };

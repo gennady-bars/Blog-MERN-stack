@@ -1,12 +1,12 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
-import { getPost, deletePostThunk } from "../../store/actions/postActions";
+import { getPost, deletePostThunk, addCommentThunk } from "../../store/actions/postActions";
 import Spinner from "../Spinner/Spinner";
 import { Link } from "react-router-dom";
 import AddComment from "../AddComment/AddComment";
 import Comments from "../Comments/Comments";
 
-const PostDetails = ({ post, user, getPost, deletePostThunk, history, match }) => {
+const PostDetails = ({ post, user, getPost, deletePostThunk, addCommentThunk, history, match }) => {
   useEffect(() => {
     getPost(match.params.id);
     // eslint-disable-next-line
@@ -40,9 +40,9 @@ const PostDetails = ({ post, user, getPost, deletePostThunk, history, match }) =
         </div>
       ) : null}
 
-      <AddComment user={user}/>
+      <AddComment user={user} addComment={addCommentThunk}/>
 
-      <Comments comments={post.comments} />
+      <Comments comments={post.comments} user={user} />
     </div>
   );
 };
@@ -54,4 +54,6 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps, { getPost, deletePostThunk })(PostDetails);
+
+
+export default connect(mapStateToProps, { getPost, deletePostThunk, addCommentThunk })(PostDetails);
