@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { connect } from "react-redux";
 import { addPostThunk } from "../../store/actions/postActions";
 import { Link } from "react-router-dom";
+import withAuth from "../../hoc/withAuth";
 
 const AddPost = ({ addPostThunk, history }) => {
   const [title, setTitle] = useState("");
@@ -45,4 +46,4 @@ const AddPost = ({ addPostThunk, history }) => {
   );
 };
 
-export default connect(null, { addPostThunk })(AddPost);
+export default withAuth(connect(null, { addPostThunk })(AddPost))
