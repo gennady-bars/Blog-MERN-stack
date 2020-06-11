@@ -3,6 +3,8 @@ import { connect } from "react-redux";
 import { getPost, deletePostThunk } from "../../store/actions/postActions";
 import Spinner from "../Spinner/Spinner";
 import { Link } from "react-router-dom";
+import AddComment from "../AddComment/AddComment";
+import Comments from "../Comments/Comments";
 
 const PostDetails = ({ post, user, getPost, deletePostThunk, history, match }) => {
   useEffect(() => {
@@ -37,6 +39,10 @@ const PostDetails = ({ post, user, getPost, deletePostThunk, history, match }) =
           </Link>
         </div>
       ) : null}
+
+      <AddComment user={user}/>
+
+      <Comments comments={post.comments} />
     </div>
   );
 };

@@ -11,6 +11,9 @@ const Posts = ({ posts, error, getPosts }) => {
     // eslint-disable-next-line
   }, []);
 
+  console.log(posts);
+  
+
   if (error) {
     return (
       <div>
