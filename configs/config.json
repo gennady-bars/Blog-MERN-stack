@@ -1,6 +1,0 @@
-{
-  "mongoURL": "mongodb+srv://Gena:Gena1981@blog-7vas0.mongodb.net/test?retryWrites=true&w=majority",
-  "key": "key",
-  "PORT": "5000",
-  "baseUrl": "http://localhost:5000/"
-}
