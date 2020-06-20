@@ -7,5 +7,6 @@
 
 ### Here is the [deployed app](https://blog-mern-stack-app.herokuapp.com/) on Heroku
 
-It may take 10 seconds to wake Heroku server up and show the site
+It may take 10 seconds to wake Heroku server up and show the site  
+Может потребоваться до 10 секунд для того, чтобы Heroku проснулся
 
