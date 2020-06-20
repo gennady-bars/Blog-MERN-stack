@@ -1,5 +1,4 @@
 # Blog made with MongoDB/Mongoose + Express + React/Redux + Node
-a blog app
 
 * you can read the blog posts
 * you can add your own posts if logged in
