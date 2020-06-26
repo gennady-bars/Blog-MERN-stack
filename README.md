@@ -6,6 +6,7 @@
 * you can edit, delete your own posts and comments if logged in
 
 ### Here is the [deployed app](https://blog-mern-stack-app.herokuapp.com/) on Heroku
+### Вот ссылка на [задеплоенное приложение](https://blog-mern-stack-app.herokuapp.com/) на Heroku
 
 It may take 10 seconds to wake Heroku server up and show the site  
 Может потребоваться до 10 секунд для того, чтобы Heroku проснулся
